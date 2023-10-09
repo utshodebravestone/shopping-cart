@@ -27,7 +27,15 @@ const Cart = () => {
 
       <div className="w-full flex justify-center">
         <button
-          onClick={() => dispatch({ type: "reset" })}
+          onClick={() => {
+            if (
+              confirm(
+                "Your cart will be empty after performing this action. Press 'Ok' to precede."
+              )
+            ) {
+              dispatch({ type: "reset" });
+            }
+          }}
           className="px-10 py-3 bg-amber-400 font-bold border border-amber-400 rounded-full hover:bg-transparent hover:text-amber-400 transition-colors duration-300"
         >
           Checkout

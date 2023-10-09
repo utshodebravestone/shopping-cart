@@ -19,22 +19,27 @@ const Home = () => {
       </>
     );
 
-  if (!products)
-    return (
-      <h1 className="w-full text-center text-4xl font-bold">Loading...</h1>
-    );
-
   return (
     <section className="w-full p-5">
       <h1 className="text-center text-4xl font-medium">Trending Products</h1>
 
-      <ul className="w-full my-5 grid grid-cols-2 gap-3">
-        {products.map((product) => (
-          <li key={product.id}>
-            <Product product={product} />
-          </li>
-        ))}
-      </ul>
+      <div className="h-5"></div>
+
+      {products ? (
+        <ul className="w-full my-5 grid grid-cols-2 gap-3">
+          {products.map((product) => (
+            <li key={product.id}>
+              <Product product={product} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <h1 className="w-full text-center text-4xl font-bold">
+          Loading Products...
+        </h1>
+      )}
+
+      <div className="h-5"></div>
 
       <div className="text-center">
         <Link
