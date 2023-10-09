@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 
 import useCart from "../hooks/useCart";
+import useToggle from "../hooks/useToggle";
 
 const Product = ({ product }) => {
   const { title, price, category, description, image } = product;
+  const [added, toggleAdded] = useToggle(false);
   const { dispatch } = useCart();
 
   return (
@@ -20,12 +22,18 @@ const Product = ({ product }) => {
         </small>
         <div className="w-full mt-3 flex justify-center">
           <button
-            onClick={() =>
-              dispatch({ type: "add", payload: { ...product, count: 1 } })
+            onClick={() => {
+              dispatch({ type: "add", payload: { ...product, count: 1 } });
+              toggleAdded();
+            }}
+            disabled={added}
+            className={
+              added
+                ? "px-10 py-3 bg-amber-500 font-bold border border-amber-500 rounded-full"
+                : "px-10 py-3 bg-amber-400 font-bold border border-amber-400 rounded-full hover:bg-transparent hover:text-amber-400 transition-colors duration-300"
             }
-            className="px-10 py-3 bg-amber-400 font-bold border border-amber-400 rounded-full hover:bg-transparent hover:text-amber-400 transition-colors duration-300"
           >
-            Add to Cart
+            {added ? "Added to Cart" : "Add to Cart"}
           </button>
         </div>
       </div>
