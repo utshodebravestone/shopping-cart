@@ -12,14 +12,19 @@ export const CartContext = createContext({
 const reducer = (state, action) => {
   switch (action.type) {
     case "add":
-      return [...state, action.payload];
+      if (state.find((it) => it.id === action.payload.id)) return state;
+      else return [...state, action.payload];
+    case "remove":
+      return state.filter((it) => it.id !== action.payload);
     case "inc":
       return state.map((it) =>
         it.id === action.payload ? { ...it, count: it.count + 1 } : it
       );
     case "dec":
       return state.map((it) =>
-        it.id === action.payload ? { ...it, count: it.count - 1 } : it
+        it.id === action.payload
+          ? { ...it, count: it.count > 0 ? it.count - 1 : it.count }
+          : it
       );
     case "reset":
       return [];
